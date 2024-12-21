@@ -88,7 +88,7 @@ def ensure_user_can_init_session(username: UserId, now: datetime) -> None:
         if session_info.logged_out:
             continue
         idle_time = now.timestamp() - session_info.last_activity
-        if idle_time <= session_timeout:
+        if idle_time <= session_timeout and not session_info.logged_out:
             auth_logger.debug(
                 f"{username} another session is active (inactive for: {idle_time} seconds)"
             )
